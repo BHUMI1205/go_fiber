@@ -1,0 +1,225 @@
+definitions:
+  controller.CategorySerializer:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+    type: object
+  controller.UserSerializer:
+    properties:
+      email:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      password:
+        type: string
+    type: object
+info:
+  contact: {}
+  description: This is a sample server.
+  termsOfService: http://swagger.io/terms/
+  title: Fiber Swagger Example API
+  version: "2.0"
+paths:
+  /category/:
+    get:
+      description: Get All Category
+      responses: {}
+      security:
+      - BearerAuth: []
+      summary: Get All Category
+      tags:
+      - Category
+    post:
+      consumes:
+      - application/json
+      description: Add a new category
+      parameters:
+      - description: Category object to add
+        in: body
+        name: category
+        required: true
+        schema:
+          $ref: '#/definitions/controller.CategorySerializer'
+      produces:
+      - application/json
+      responses: {}
+      security:
+      - BearerAuth: []
+      summary: Add a Category
+      tags:
+      - Category
+  /category/{id}:
+    delete:
+      description: Delete a category by ID
+      parameters:
+      - description: Category ID to delete
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses: {}
+      security:
+      - BearerAuth: []
+      summary: Delete a Category
+      tags:
+      - Category
+    put:
+      consumes:
+      - application/json
+      description: Update an existing category by ID
+      parameters:
+      - description: Category ID to update
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Updated category object
+        in: body
+        name: category
+        required: true
+        schema:
+          $ref: '#/definitions/controller.CategorySerializer'
+      produces:
+      - application/json
+      responses: {}
+      security:
+      - BearerAuth: []
+      summary: Update a Category
+      tags:
+      - Category
+  /product/:
+    get:
+      description: Get All Product
+      responses: {}
+      security:
+      - BearerAuth: []
+      summary: Get All Product
+      tags:
+      - Product
+    post:
+      consumes:
+      - multipart/form-data
+      description: Add a new product
+      parameters:
+      - description: Product Name
+        in: formData
+        name: name
+        required: true
+        type: string
+      - description: Category ID
+        in: formData
+        name: categoryId
+        required: true
+        type: integer
+      - description: Product Image
+        in: formData
+        name: image
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses: {}
+      security:
+      - BearerAuth: []
+      summary: Add a Product
+      tags:
+      - Product
+  /product/:{id}:
+    delete:
+      description: Delete a product by ID
+      parameters:
+      - description: Product ID to delete
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses: {}
+      security:
+      - BearerAuth: []
+      summary: Delete a Product
+      tags:
+      - Product
+  /product/{id}:
+    put:
+      consumes:
+      - multipart/form-data
+      description: Update an existing product by ID
+      parameters:
+      - description: Product ID to update
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Product Name
+        in: formData
+        name: name
+        required: true
+        type: string
+      - description: Category ID
+        in: formData
+        name: categoryId
+        required: true
+        type: integer
+      - description: Product Image
+        in: formData
+        name: image
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses: {}
+      security:
+      - BearerAuth: []
+      summary: Update a Product
+      tags:
+      - Product
+  /user/login:
+    post:
+      consumes:
+      - application/json
+      description: Login a user with email and password
+      parameters:
+      - description: User Data
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/controller.UserSerializer'
+      produces:
+      - application/json
+      responses: {}
+      summary: Login a user
+      tags:
+      - user
+  /user/register:
+    post:
+      consumes:
+      - application/json
+      description: Register a new user with email and password
+      parameters:
+      - description: User Data
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/controller.UserSerializer'
+      produces:
+      - application/json
+      responses: {}
+      summary: Register a new user
+      tags:
+      - user
+securityDefinitions:
+  BearerAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
